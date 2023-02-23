@@ -2,7 +2,7 @@ OLED_ENABLE = yes
 ENCODER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
-WPM_ENABLE = no
+WPM_ENABLE = yes
 
 #Debug options
 VERBOSE = no
@@ -13,13 +13,12 @@ LTO_ENABLE = yes
 
 SPLIT_KEYBOARD = yes
 
-VIA_ENABLE = yes
+VIA_ENABLE = no
 
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = pimoroni_trackball
 
-ifeq ($(PROMICRO), yes)
-  BOOTLOADER = caterina
-else ifeq ($(ELITEC), yes)
-  BOOTLOADER = atmel-dfu
-endif
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no 
+MAGIC_ENABLE = no
+MUSIC_ENABLE = no
