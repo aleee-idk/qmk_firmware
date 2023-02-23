@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  ES_QUOT, \
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  ES_GRV, \
   KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_BSPC, \
-  KC_LCTRL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MPLY,    XXXXXXX,KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS, KC_RSFT, \
+  KC_LCTL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MPLY,    XXXXXXX,KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS, KC_RSFT, \
              KC_LGUI ,KC_LALT, KC_LCTL, KC_SPC, KC_SYMBOLS,      KC_SYSTEM,  KC_ENT, KC_RCTL, KC_ALGR, KC_RGUI \
 ),
 /*
@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  °   |   !  |   "  |   #  |   $  |   %  |                    |   &  |   /  |   (  |   )  |   =  |   ?  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   <  |   >  |   [  |   ]  |   "  |                    |   *  |   /  |   +  |   -  |   =  |   ^  |
+ * | Tab  |   <  |   >  |   [  |   ]  |   "  |                    |   *  |   /  |   +  |   -  |   \  |   ^  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Esc  |   ¿  |   ?  |   (  |   )  |   '  |-------.    ,-------|   |  |   $  |   #  |   ~  |   \  | BSCP |
+ * | Esc  |   ¿  |   ?  |   (  |   )  |   '  |-------.    ,-------|   |  |   $  |   #  |   =  |   ~  | BSCP |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * | Shift|   ¡  |   !  |   {  |   }  |   `  |-------|    |-------|   &  |   %  |   ;  |   :  |   _  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYMBOLS] = LAYOUT(
   S(KC_GRV),        S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),                                 S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), S(ES_QUOT),
-  _______,          ES_LABK ,S(ES_LABK),  S(KC_QUOT), S(KC_BSLS), S(KC_2),                    KC_PAST, KC_PSLS, KC_PPLS, KC_PMNS, S(KC_0), ALGR(KC_QUOT),
-  KC_NUMPAD,   ES_IEXL,   S(ES_QUOT), S(KC_8),  S(ES_9), ES_QUOT,                              KC_GRV, S(KC_4), S(KC_3), ALGR(ES_PLUS), ALGR(ES_QUOT), _______,
+  _______,          ES_LABK ,S(ES_LABK),  S(KC_QUOT), S(KC_BSLS), S(KC_2),                    KC_PAST, KC_PSLS, KC_PPLS, KC_PMNS, ALGR(ES_QUOT), ALGR(KC_QUOT),
+  KC_NUMPAD,   ES_IEXL,   S(ES_QUOT), S(KC_8),  S(ES_9), ES_QUOT,                              KC_GRV, S(KC_4), S(KC_3), S(KC_0), ALGR(ES_PLUS), _______,
   _______,          S(ES_IEXL), S(KC_1), KC_QUOT, KC_BSLS, ALGR(KC_NUHS), _______,       _______, S(KC_6),  S(KC_5), S(ES_COMM), S(ES_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______
 ),
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | RESET|      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
+ * |      |      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
@@ -177,8 +177,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK, KC_GAME,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,KC_QWERTY,KC_COLEMAK, KC_GAME,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
   )
@@ -241,6 +241,12 @@ static void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_ln_P(PSTR("MAC"), false);
+    } else {
+        oled_write_ln_P(PSTR("WIN"), false);
+    }
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
