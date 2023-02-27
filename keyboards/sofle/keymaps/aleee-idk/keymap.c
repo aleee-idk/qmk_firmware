@@ -27,6 +27,24 @@ enum custom_keycodes {
     KC_DLINE
 };
 
+// Tap Dance declarations
+enum {
+    TD_GUI_CTL,
+    TD_CTL_GUI,
+    TD_ESC_CTL,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for GUI, twice for Control
+    [TD_GUI_CTL] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_LCTL),
+
+    // Tap once for GUI, twice for Control
+    [TD_CTL_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LGUI),
+
+    // Tap once for ESCAPE, twice for LShift
+    [TD_ESC_CTL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_LCTL),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -48,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT( \
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  ES_QUOT, \
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  ES_GRV, \
-  KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_BSPC, \
+  TD(TD_ESC_CTL),   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_BSPC, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MPLY,    XXXXXXX,KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS,  KC_RSFT, \
-             KC_LALT ,KC_LCTL, KC_LGUI, KC_SPC, KC_SYMBOLS,      KC_SYSTEM,  KC_ENT, KC_RGUI, KC_RCTL, KC_ALGR \
+             KC_LALT ,TD(TD_CTL_GUI), TD(TD_GUI_CTL), KC_SPC, KC_SYMBOLS,      KC_SYSTEM,  KC_ENT, KC_RGUI, KC_RCTL, KC_ALGR \
 ),
 /*
  * GAME
@@ -167,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
+ * |      |      |GUI TG|MACWIN|      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -176,9 +194,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT(
-  XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,KC_QWERTY,KC_COLEMAK, KC_GAME,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX, CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, KC_GAME,KC_COLEMAK, KC_QWERTY,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, GUI_TOG, CG_TOGG,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
   )
@@ -187,6 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 
 static void render_logo(void) {
+    // Original QMK logo
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
         0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
@@ -197,10 +216,12 @@ static void render_logo(void) {
 }
 
 static void print_status_narrow(void) {
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("MODE"), false);
+    // 5 is max characters wide
+    // prefere 4 for new line chinanigans
+
     oled_write_ln_P(PSTR(""), false);
+    // Print current mode
+    oled_write_ln_P(PSTR("MODE"), false);
 
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
@@ -213,39 +234,72 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("GAME"), false);
             break;
         default:
-            oled_write_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+
+    oled_write_ln_P(PSTR("\n"), false);
+
     // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
+    oled_write_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
         case _QWERTY:
             oled_write_ln_P(PSTR("Base"), false);
             break;
         case _SYSTEM:
-            oled_write_P(PSTR("Sys"), false);
+            oled_write_ln_P(PSTR("Sys"), false);
             break;
         case _SYMBOLS:
-            oled_write_ln_P(PSTR("Symls"), false);
+            oled_write_ln_P(PSTR("Syml"), false);
             break;
         case _NUMPAD:
             oled_write_ln_P(PSTR("Nmpd"), false);
             break;
         case _ADJUST:
-            oled_write_ln_P(PSTR("Adj\n"), false);
+            oled_write_ln_P(PSTR("Adj"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("\n"), false);
+        
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+
+    oled_write_ln_P(PSTR("\n"), false);
+
+    static const char PROGMEM tux[] = {
+        153,154,10,
+        185,186,0
+    };
+
+    static const char PROGMEM mac[] = {
+        149,150,10,
+        181,182,0
+    };
 
     if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR("MAC"), false);
+        oled_write_P(mac, false);
     } else {
-        oled_write_ln_P(PSTR("WIN"), false);
+        oled_write_P(tux, false);
+    }
+
+    oled_write_P(PSTR(" "), false);
+    
+    static const char PROGMEM gui_enabled[] = {
+        7,10,
+        7,0
+    };
+
+    static const char PROGMEM gui_disabled[] = {
+        8,10,
+        8,0
+    };
+
+    if (keymap_config.no_gui) {
+        oled_write_P(gui_disabled, false);
+    } else {
+        oled_write_P(gui_enabled, false);
     }
 }
 

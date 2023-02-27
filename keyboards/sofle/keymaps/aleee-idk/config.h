@@ -8,3 +8,6 @@ for more options.
 #define EE_HANDS
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#undef TAPPING_TERM
+#define TAPPING_TERM 175
+
