@@ -1,4 +1,5 @@
 /*
+ * Copyright 2021 QMK Community
  * Copyright 2021 Tyler Thrailkill (@snowe/@snowe2010) <tyler.b.thrailkill@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,15 +18,14 @@
 
 #pragma once
 
-#include "quantum.h"
+extern bool isSneaking;
+extern bool isJumping;
+extern bool showedJump;
 
-#ifdef OLED_ENABLE
-#    include "oled_driver.h"
-#    define OLED_RENDER_WPM_COUNTER " WPM: "
-#endif
-#ifdef LUNA_ENABLE
-#    include "luna.h"
-#endif
-#ifdef BARS_ENABLE
-#    include "music-bars.c"
-#endif
+extern int current_wpm;
+
+// status variables
+extern led_t led_usb_state;
+// extern int current_wpm;
+
+void render_luna(int LUNA_X, int LUNA_Y);
