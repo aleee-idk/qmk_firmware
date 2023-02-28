@@ -44,17 +44,17 @@ void oled_render_status(void) {
         oled_write_P(tux, false);
     }
 
-    oled_set_cursor(0, 4);
+    oled_set_cursor(0, 3);
 
     oled_write_P(PSTR("GUI"), false);
 
-    oled_set_cursor(1, 5);
+    oled_set_cursor(1, 4);
     oled_write_P(PSTR("Dis!"), keymap_config.no_gui);
 
-    oled_set_cursor(0, 7);
+    oled_set_cursor(0, 6);
 
     oled_write_P(PSTR("Mode"), false);
-    oled_set_cursor(1, 8);
+    oled_set_cursor(1, 7);
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
@@ -69,9 +69,9 @@ void oled_render_status(void) {
             oled_write_ln_P(PSTR("Undef"), false);
     }
 
-    oled_set_cursor(0, 10);
+    oled_set_cursor(0, 9);
     oled_write_P(PSTR("Layer"), false);
-    oled_set_cursor(1, 11);
+    oled_set_cursor(1, 10);
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
         case _QWERTY:
