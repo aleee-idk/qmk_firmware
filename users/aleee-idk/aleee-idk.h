@@ -4,8 +4,6 @@
 #    include "oled_setup.h"
 #endif
 
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-
 enum sofle_layers {
     _QWERTY,
     _COLEMAK,
