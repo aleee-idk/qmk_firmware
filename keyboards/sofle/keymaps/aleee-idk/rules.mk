@@ -3,3 +3,4 @@ OLED_DRIVER = SSD1306
 
 # animations
 LUNA_ENABLE = yes
+VIA_ENABLE = yes
