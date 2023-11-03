@@ -1,5 +1,7 @@
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
+
+ENCODER_ENABLE = yes
 
 # animations
 LUNA_ENABLE = yes
